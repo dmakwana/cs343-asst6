@@ -1,3 +1,5 @@
+#pragma once
+
 _Monitor MPRNG {
     unsigned int seed_; 
   public:

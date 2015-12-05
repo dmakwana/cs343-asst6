@@ -1,3 +1,5 @@
+#pragma once
+
 _Monitor Bank {
   public:
     Bank( unsigned int numStudents );

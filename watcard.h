@@ -1,3 +1,5 @@
+#pragma once
+
 class WATCard {
 	unsigned int balance;
     WATCard( const WATCard & );            // prevent copying
