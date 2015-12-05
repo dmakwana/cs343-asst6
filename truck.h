@@ -10,9 +10,11 @@ _Task Truck {
 	BottlingPlant &plant;
 	unsigned int numVendingMachines;
 	unsigned int maxStockPerFlavour;
+	unsigned int stocking;
 	VendingMachine **machineList;
-	unsigned int cargo[];
+	unsigned int cargo[NUM_FLAVOURS];
     void main();
+    bool truckEmpty();
   public:
     Truck( Printer &prt, NameServer &nameServer, BottlingPlant &plant,
            unsigned int numVendingMachines, unsigned int maxStockPerFlavour );

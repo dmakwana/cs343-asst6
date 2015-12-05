@@ -3,9 +3,40 @@
 
 extern MPRNG mprng;
 
+bool Truck::truckEmpty() {
+	for (int i = 0; i < NUM_FLAVOURS; i++) {
+		if(cargo[i]) {
+			return false;
+		}
+	}
+	return true;
+}
+
 void Truck::main() {
 	while(true) {
-		plant.getShipment(cargo);
+		yield(mprng(1,10));
+		try {
+			_Enable {
+				plant.getShipment(cargo);
+			}
+		} catch (Shutdown) {
+			break;
+		}
+
+		for (int i = 0; i < numVendingMachines; i++) {
+			VendingMachine* vm = machineList[stocking];
+			unsigned int *stock = vm->inventory();
+			for (int j = 0; j < NUM_FLAVOURS; j++) {
+				unsigned int openSpace = maxStockPerFlavour - stock[j];
+				unsigned int restock = cargo[j] > openSpace ? openSpace, cargo[j];
+				cargo[j] -= restock;
+				stock[j] += restock;
+			}
+			stocking = (stocking + 1) % numVendingMachines;
+			if (truckEmpty()) {
+				break;
+			}
+		}
 	}
 }
 
