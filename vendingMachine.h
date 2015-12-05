@@ -3,7 +3,7 @@
 _Task VendingMachine {
     void main();
   public:
-    enum Flavours { ... };                 // flavours of soda (YOU DEFINE)
+    enum Flavours { B, C, R, J, NUM_FLAVOURS };                 // flavours of soda (YOU DEFINE)
     _Event Funds {};                       // insufficient funds
     _Event Stock {};                       // out of stock for particular flavour
     VendingMachine( Printer &prt, NameServer &nameServer, unsigned int id, unsigned int sodaCost,

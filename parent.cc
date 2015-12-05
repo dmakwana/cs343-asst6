@@ -4,7 +4,7 @@
 
 extern MPRNG mprng;
 
-Parent::main() {
+void Parent::main() {
 	for (;;) {
 		_Accept(~Parent) {
 			break;
