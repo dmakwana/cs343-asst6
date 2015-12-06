@@ -5,7 +5,7 @@
 
 void BottlingPlant::main() {
 	// Begin by creating truck
-	Truck truck = Truck(prt, nameServer, self, numVendingMachines, maxStockPerFlavour);
+	Truck truck = Truck(prt, nameServer, *this, numVendingMachines, maxStockPerFlavour);
 	for (;;) {
 		// Perform the production run
 		for (unsigned int i = 0; i < NUM_FLAVOURS; i++) {
@@ -33,13 +33,10 @@ BottlingPlant::BottlingPlant(Printer &prt, NameServer &nameServer, unsigned int 
 
 void BottlingPlant::getShipment(unsigned int cargo[]) {
 	if (plantShuttingDown) {
-		_Throw Shutdown;
+		_Resume Shutdown() _at uThisTask();
 	} else {
-		unsigned int i = 0;
 		for (unsigned int j = 0; j < NUM_FLAVOURS; j++) {
-			for (unsigned int k = 0; k < productionRun[j]; k++, i++){
-				cargo[i] = j;
-			}
+			cargo[j] = productionRun[j];
 		}
 	}
 }
