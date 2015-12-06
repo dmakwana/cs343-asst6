@@ -1,10 +1,14 @@
 #include "nameServer.h"
 
 void NameServer::main() {
+	prt.print(Printer::NameServer, 'S');
 	int vm_id = 0;
 	for (unsigned int i = 0; i < numStudents; i++) {
 		students[i] = vm_id;
 		vm_id = (vm_id + 1) % numVendingMachines; 
+	}
+	_Accept(~NameServer) {
+		prt.print(Printer::NameServer, 'F');
 	}
 }
 
@@ -22,6 +26,7 @@ NameServer::~NameServer() {
 }
 
 void NameServer::VMregister(VendingMachine *vendingmachine) {
+	prt.print(Printer::NameServer, 'R', registered);
 	machineList[registered] = vendingmachine;
 	registered++;
 }
@@ -29,6 +34,7 @@ void NameServer::VMregister(VendingMachine *vendingmachine) {
 VendingMachine *NameServer::getMachine(unsigned int id) {
 	VendingMachine *vm = machineList[students[id]];
 	students[id] = (students[id] + 1) % numVendingMachines;
+	prt.print(Printer::NameServer, 'N', id, students[id]);
 	return vm;   
 }
 

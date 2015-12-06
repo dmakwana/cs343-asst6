@@ -23,11 +23,12 @@ _Task WATCardOffice {
     };
     queue<Job*> jobs;
     _Task Courier {
+        unsigned int cid;
         Bank &bank;
         WATCardOffice &cardOffice;
       public:
         void main();
-        Courier(Bank &bank, WATCardOffice &cardOffice);
+        Courier(unsigned int cid, Bank &bank, WATCardOffice &cardOffice);
     };                 // communicates with bank
     vector<Courier*> couriers;
     vector<WATCard*> outstandingWATCards;
