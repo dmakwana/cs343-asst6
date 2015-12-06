@@ -126,12 +126,15 @@ void Printer::resetCellDetails() {
 }
 
 void Printer::flushLine(bool finished) {
+	// cout << "flushing line" << endl;
     for (unsigned int i = 0; i < numTotalCells; i++) {
         if (cells[i].set || (finished && cells[i].state == 'F')) { 
             printCell(i);
+            continue;
         } else if (finished) {
-            std::cout<< "...\t";
+            std::cout<< "...";
         }
+        std::cout << "\t";
     }
     std::cout<< std::endl;
     resetCellDetails();
@@ -175,7 +178,12 @@ Printer::Printer(unsigned int numStudents, unsigned int numVendingMachines,
 }
 
 void Printer::print(Kind kind, char state) {
-    if (cells[kind].set || state == 'F') flushLine(false);
+    if (cells[kind].set || state == 'F') {
+		// if (cells[kind].set) {
+		// 	cout << kind << " is already set!" << endl;
+		// }
+		flushLine(false);
+    }
 	cells[kind].set = true;
 	cells[kind].state = state;
 	if (state == 'F') flushLine(true);
@@ -204,7 +212,12 @@ unsigned int Printer::getIdx(Kind kind, unsigned int lid) {
 // Students, Vending Machines, and Couriers
 void Printer::print(Kind kind, unsigned int lid, char state) {
 	unsigned int idx = getIdx(kind, lid);
-	if (cells[idx].set || state == 'F') flushLine(false);
+	if (cells[idx].set || state == 'F') {
+		// if (cells[idx].set) {
+		// 	cout << idx << " is already set!" << endl;
+		// }
+		flushLine(false);
+	}
 	cells[idx].set = true;
 	cells[idx].state = state;
 	if (state == 'F') flushLine(true);
