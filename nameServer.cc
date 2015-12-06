@@ -2,7 +2,7 @@
 
 void NameServer::main() {
 	int vm_id = 0;
-	for (int i = 0; i < numStudents; i++) {
+	for (unsigned int i = 0; i < numStudents; i++) {
 		students[i] = vm_id;
 		vm_id = (vm_id + 1) % numVendingMachines; 
 	}
@@ -27,8 +27,9 @@ void NameServer::VMregister(VendingMachine *vendingmachine) {
 }
 
 VendingMachine *NameServer::getMachine(unsigned int id) {
-	VendingMachine *vm = machineList[students[i]];
-	students[i] = (students[i] + 1) % numVendingMachines;   
+	VendingMachine *vm = machineList[students[id]];
+	students[id] = (students[id] + 1) % numVendingMachines;
+	return vm;   
 }
 
 VendingMachine **NameServer::getMachineList() {

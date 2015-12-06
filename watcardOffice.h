@@ -1,12 +1,24 @@
 #pragma once
+#include "watcard.h"
+#include "bank.h"
+#include "printer.h"
+
+class Args{
+
+};
 
 _Task WATCardOffice {
+    Printer &prt;
+    Bank &bank;
+    unsigned int numCouriers; 
     struct Job {                           // marshalled arguments and return future
         Args args;                         // call arguments (YOU DEFINE "Args")
         WATCard::FWATCard result;          // return future
         Job( Args args ) : args( args ) {}
     };
-    _Task Courier { ... };                 // communicates with bank
+    _Task Courier {
+        void main();
+    };                 // communicates with bank
 
     void main();
   public:

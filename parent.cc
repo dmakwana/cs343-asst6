@@ -1,3 +1,4 @@
+#include "parent.h"
 #include "printer.h"
 #include "bank.h"
 #include "MPRNG.h"

@@ -1,10 +1,10 @@
 #include "truck.h"
 #include "MPRNG.h"
 
-extern MPRNG mprng;
+MPRNG mprng;
 
 bool Truck::truckEmpty() {
-	for (int i = 0; i < NUM_FLAVOURS; i++) {
+	for (int i = 0; i < VendingMachine::NUM_FLAVOURS; i++) {
 		if(cargo[i]) {
 			return false;
 		}
@@ -19,16 +19,16 @@ void Truck::main() {
 			_Enable {
 				plant.getShipment(cargo);
 			}
-		} catch (Shutdown) {
+		} catch (BottlingPlant::Shutdown s) {
 			break;
 		}
 
-		for (int i = 0; i < numVendingMachines; i++) {
+		for (unsigned int i = 0; i < numVendingMachines; i++) {
 			VendingMachine* vm = machineList[stocking];
 			unsigned int *stock = vm->inventory();
-			for (int j = 0; j < NUM_FLAVOURS; j++) {
+			for (int j = 0; j < VendingMachine::NUM_FLAVOURS; j++) {
 				unsigned int openSpace = maxStockPerFlavour - stock[j];
-				unsigned int restock = cargo[j] > openSpace ? openSpace, cargo[j];
+				unsigned int restock = cargo[j] > openSpace ? openSpace : cargo[j];
 				cargo[j] -= restock;
 				stock[j] += restock;
 			}

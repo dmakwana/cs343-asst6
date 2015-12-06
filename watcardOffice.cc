@@ -10,6 +10,8 @@ WATCard::FWATCard WATCardOffice::transfer( unsigned int sid, unsigned int amount
 	return WATCard::FWATCard();
 }
 
-Job *WATCardOffice::requestWork() {
-	return &Job();
+WATCardOffice::Job *WATCardOffice::requestWork() {
+	Args args;
+	WATCardOffice::Job job(args);
+	return &job;
 }

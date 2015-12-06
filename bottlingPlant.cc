@@ -1,17 +1,20 @@
+#include "bottlingPlant.h"
 #include "printer.h"
 #include "nameServer.h"
-#include "mprng.h"
+#include "MPRNG.h"
 #include "truck.h"
+
+extern MPRNG mprng;
 
 void BottlingPlant::main() {
 	// Begin by creating truck
-	Truck truck = Truck(prt, nameServer, *this, numVendingMachines, maxStockPerFlavour);
+	Truck truck(prt, nameServer, *this, numVendingMachines, maxStockPerFlavour);
 	for (;;) {
 		// Perform the production run
-		for (unsigned int i = 0; i < NUM_FLAVOURS; i++) {
-			productionRun[i] = mprng(MaxShippedPerFlavour);
+		for (unsigned int i = 0; i < VendingMachine::NUM_FLAVOURS; i++) {
+			productionRun[i] = mprng(maxShippedPerFlavour);
 		}
-		yield(TimeBetweenShipments);
+		yield(timeBetweenShipments);
 		// Wait for truck to pick up the production run before starting new one
 		_Accept(~BottlingPlant) {
 			plantShuttingDown = true;
@@ -27,15 +30,15 @@ BottlingPlant::BottlingPlant(Printer &prt, NameServer &nameServer, unsigned int 
 							prt(prt), nameServer(nameServer), 
 							numVendingMachines(numVendingMachines),
 							maxShippedPerFlavour(maxShippedPerFlavour),
-							maxStockPerFlavour(maxStockPerFlavour)
+							maxStockPerFlavour(maxStockPerFlavour),
 							timeBetweenShipments(timeBetweenShipments),
 							plantShuttingDown(false) {}
 
 void BottlingPlant::getShipment(unsigned int cargo[]) {
 	if (plantShuttingDown) {
-		_Resume Shutdown() _at uThisTask();
+		_Resume Shutdown() _At uThisTask();
 	} else {
-		for (unsigned int j = 0; j < NUM_FLAVOURS; j++) {
+		for (unsigned int j = 0; j < VendingMachine::NUM_FLAVOURS; j++) {
 			cargo[j] = productionRun[j];
 		}
 	}

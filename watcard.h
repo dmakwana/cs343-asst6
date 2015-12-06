@@ -1,4 +1,5 @@
 #pragma once
+#include "uFuture.h"
 
 class WATCard {
 	unsigned int balance;

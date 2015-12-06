@@ -12,7 +12,7 @@ _Task Truck {
 	unsigned int maxStockPerFlavour;
 	unsigned int stocking;
 	VendingMachine **machineList;
-	unsigned int cargo[NUM_FLAVOURS];
+	unsigned int cargo[VendingMachine::NUM_FLAVOURS];
     void main();
     bool truckEmpty();
   public:

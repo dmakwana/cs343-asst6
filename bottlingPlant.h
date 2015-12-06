@@ -1,8 +1,9 @@
+#pragma once
+
 #include "vendingMachine.h"
 #include "printer.h"
 #include "nameServer.h"
-
-#pragma once
+#include "config.h"
 
 _Task BottlingPlant {
 	Printer &prt;
@@ -11,7 +12,7 @@ _Task BottlingPlant {
 	unsigned int maxShippedPerFlavour;
 	unsigned int maxStockPerFlavour;
 	unsigned int timeBetweenShipments;
-	unsigned int productionRun[NUM_FLAVOURS];
+	unsigned int productionRun[VendingMachine::NUM_FLAVOURS];
 	bool plantShuttingDown;
     void main();
   public:

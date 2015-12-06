@@ -1,4 +1,5 @@
 #include "printer.h"
+#include <iostream>
 
 //enum Kind { Parent, Groupoff, WATCardOffice, NameServer, Truck, BottlingPlant, Student, Vending, Courier };
 
@@ -9,85 +10,85 @@ void Printer::resetCellDetails() {
 }
 
 void Printer::printParent() {
-	cout << cells[Parent].state;
+	std::cout<< cells[Parent].state;
 	if (cells[Parent].state == 'D') {
-		cout << " " << value1 << "," << value2;
+		std::cout<< " " << cells[Parent].value1 << "," << cells[Parent].value2;
 	}
-	cout << "\t";
+	std::cout<< "\t";
 }
 
 void Printer::printGroupoff() {
-	cout << cells[Groupoff].state;
+	std::cout<< cells[Groupoff].state;
 	if (cells[Groupoff].state == 'D') {
-		cout << " " << value1;
+		std::cout<< " " << cells[Groupoff].value1;
 	}
-	cout << "\t";
+	std::cout<< "\t";
 }
 
 void Printer::printWATOff() {
-	cout << cells[WATCardOffice].state;
+	std::cout<< cells[WATCardOffice].state;
 	if (cells[WATCardOffice].state == 'C' || cells[WATCardOffice].state == 'T') {
-		cout << " " << value1 << "," << value2;
+		std::cout<< " " << cells[WATCardOffice].value1 << "," << cells[WATCardOffice].value2;
 	}
-	cout << "\t";
+	std::cout<< "\t";
 }
 
 void Printer::printNameServer() {
-	cout << cells[NameServer].state;
+	std::cout<< cells[NameServer].state;
 	if (cells[NameServer].state == 'R') {
-		cout << " " << value1;
+		std::cout<< " " << cells[NameServer].value1;
 	} else if (cells[NameServer].state == 'N') {
-		cout << " " << value1 << "," << value2;
+		std::cout<< " " << cells[NameServer].value1 << "," << cells[NameServer].value2;
 	}
-	cout << "\t";
+	std::cout<< "\t";
 }
 
 void Printer::printTruck() {
-	cout << cells[Truck].state;
+	std::cout<< cells[Truck].state;
 	if (cells[Truck].state == 'P') {
-		cout << " " << value1;
+		std::cout<< " " << cells[Truck].value1;
 	} else if (cells[Truck].state == 'd' || 
 				cells[Truck].state == 'U'  || 
 				cells[Truck].state == 'D' ) {
-		cout << " " << value1 << "," << value2;
+		std::cout<< " " << cells[Truck].value1 << "," << cells[Truck].value2;
 	}
-	cout << "\t";
+	std::cout<< "\t";
 }
 
 void Printer::printBottlingPlant() {
-	cout << cells[BottlingPlant].state;
+	std::cout<< cells[BottlingPlant].state;
 	if (cells[BottlingPlant].state == 'G') {
-		cout << " " << value1;
+		std::cout<< " " << cells[BottlingPlant].value1;
 	}
-	cout << "\t";
+	std::cout<< "\t";
 }
 
 void Printer::printStudent(unsigned int id) {
-	cout << cells[id].state;
+	std::cout<< cells[id].state;
 	if (cells[id].state == 'V' || cells[id].state == 'G' || cells[id].state == 'B') {
-		cout << " " << value1;
+		std::cout<< " " << cells[id].value1;
 	} else if (cells[id].state == 'S') {
-		cout << " " << value1 << "," << value2;
+		std::cout<< " " << cells[id].value1 << "," << cells[id].value2;
 	}
-	cout << "\t";
+	std::cout<< "\t";
 }
 
 void Printer::printVending(unsigned int id) {
-	cout << cells[id].state;
+	std::cout<< cells[id].state;
 	if (cells[id].state == 'S') {
-		cout << " " << value1;
+		std::cout << " " << cells[id].value1;
 	} else if (cells[id].state == 'B') {
-		cout << " " << value1 << "," << value2;
+		std::cout << " " << cells[id].value1 << "," << cells[id].value2;
 	}
-	cout << "\t";
+	std::cout<< "\t";
 }
 
 void Printer::printCourier(unsigned int id) {
-	cout << cells[id].state;
+	std::cout<< cells[id].state;
 	if (cells[id].state == 't' || cells[id].state == 'T') {
-		cout << " " << value1 << "," << value2;
+		std::cout<< " " << cells[id].value1 << "," << cells[id].value2;
 	}
-	cout << "\t";
+	std::cout<< "\t";
 }
 
 void Printer::printCell(unsigned int id) {
@@ -128,10 +129,10 @@ void Printer::flushLine(bool finished) {
         if (cells[i].set || (finished && cells[i].state == 'F')) { 
             printCell(i);
         } else if (finished) {
-            cout << "...\t";
+            std::cout<< "...\t";
         }
     }
-    cout << endl;
+    std::cout<< std::endl;
     resetCellDetails();
 }
 
@@ -141,35 +142,35 @@ Printer::Printer(unsigned int numStudents, unsigned int numVendingMachines,
 				numVendingMachines(numVendingMachines),
 				numCouriers(numCouriers) {
 	numTotalCells = Student + numStudents + numCouriers + numVendingMachines;
-    cout << "Parent\tGroupoff\tWATOff\tNames\tTruck\tPlant\t";
+    std::cout<< "Parent\tGroupoff\tWATOff\tNames\tTruck\tPlant\t";
     
     cells.push_back(Cell(Parent));
     cells.push_back(Cell(Groupoff));
-    cells.push_back(Cell(WATOff));
-    cells.push_back(Cell(Names));
+    cells.push_back(Cell(WATCardOffice));
+    cells.push_back(Cell(NameServer));
     cells.push_back(Cell(Truck));
-    cells.push_back(Cell(Plant));
+    cells.push_back(Cell(BottlingPlant));
 
     for (unsigned int i = 0; i < numStudents; i++){
-        cout << "Stud" << i << "\t";
+        std::cout<< "Stud" << i << "\t";
         cells.push_back(Cell(Student));
     }
 
     for (unsigned int i = 0; i < numVendingMachines; i++){
-        cout << "Mach" << i << "\t";
+        std::cout<< "Mach" << i << "\t";
         cells.push_back(Cell(Vending));
     }
 
     for (unsigned int i = 0; i < numCouriers; i++){
-        cout << "Cour" << i << "\t";
+        std::cout<< "Cour" << i << "\t";
         cells.push_back(Cell(Courier));
     }
-	cout << endl;
+	std::cout<< std::endl;
     
     for (unsigned int i = 0; i < numTotalCells; i++) {
-        cout << "*******\t";
+        std::cout<< "*******\t";
     }
-    cout << endl;
+    std::cout<< std::endl;
 }
 
 void Printer::print(Kind kind, char state) {
