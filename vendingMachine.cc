@@ -12,7 +12,7 @@ VendingMachine::VendingMachine(Printer &prt, NameServer &nameServer, unsigned in
 }
 
 VendingMachine::~VendingMachine(){
-	delete stock;
+	delete[] stock;
 }
 
 void VendingMachine::buy(Flavours flavour, WATCard &card) {
