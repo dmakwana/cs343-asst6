@@ -4,20 +4,8 @@
 
 extern MPRNG mprng;
 
-void WATCardOffice::main() {
-	// Create courier pool
-	for (unsigned int i = 0; i < numCouriers; i++) {
-		couriers.push_back(new Courier(bank, *this));
-	}
-	_Accept(~WATCardOffice) {
-		for (unsigned int i = 0; i < numCouriers; i++) {
-			delete couriers[i];
-		}
-		for (unsigned int i = 0; i < outstandingWATCards.size(); i++) {
-			delete outstandingWATCards[i];
-		}
-	}
-}
+WATCardOffice::Job::Job(unsigned int sid, unsigned int amount, WATCard* card) :
+						sid(sid), amount(amount), card(card) {}
 
 void WATCardOffice::Courier::main() {
 	// responsible for deleting every job that it picks up
@@ -48,8 +36,20 @@ void WATCardOffice::Courier::main() {
 WATCardOffice::Courier::Courier(Bank &bank, WATCardOffice &cardOffice) : 
 									 bank(bank), cardOffice(cardOffice) {}
 
-WATCardOffice::WATCardOffice(Printer &prt, Bank &bank, unsigned int numCouriers): 
-							 prt(prt), bank(bank), numCouriers(numCouriers) {}
+void WATCardOffice::main() {
+	// Create courier pool
+	for (unsigned int i = 0; i < numCouriers; i++) {
+		couriers.push_back(new Courier(bank, *this));
+	}
+	_Accept(~WATCardOffice) {
+		for (unsigned int i = 0; i < numCouriers; i++) {
+			delete couriers[i];
+		}
+		for (unsigned int i = 0; i < outstandingWATCards.size(); i++) {
+			delete outstandingWATCards[i];
+		}
+	}
+}
 
 WATCard::FWATCard WATCardOffice::create(unsigned int sid, unsigned int amount) {
 	// Creates new jobs
@@ -74,7 +74,7 @@ WATCardOffice::Job *WATCardOffice::requestWork() {
 	return retVal;
 }
 
-WATCardOffice::Job::Job(unsigned int sid, unsigned int amount, WATCard* card) :
-						sid(sid), amount(amount), card(card) {}
+WATCardOffice::WATCardOffice(Printer &prt, Bank &bank, unsigned int numCouriers): 
+							 prt(prt), bank(bank), numCouriers(numCouriers) {}
 
 
