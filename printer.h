@@ -1,5 +1,15 @@
 #pragma once
 #include <vector>
+#include <string>
+
+
+#define NODEBUG
+
+#ifdef NODEBUG
+#define printD( x )
+#else
+#define printD( x ) x
+#endif
 
 _Monitor Printer {
 	unsigned int numStudents;
@@ -27,6 +37,7 @@ _Monitor Printer {
     void print(Kind kind, unsigned int lid, char state);
     void print(Kind kind, unsigned int lid, char state, int value1);
     void print(Kind kind, unsigned int lid, char state, int value1, int value2);
+    void debug(std::string str);
   private:
   	struct Cell {
 		Cell(Kind kind) : 

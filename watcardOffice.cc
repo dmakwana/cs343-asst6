@@ -11,7 +11,7 @@ WATCardOffice::Job::Job(unsigned int sid, unsigned int amount, WATCard* card) :
 						sid(sid), amount(amount), card(card) {}
 
 void WATCardOffice::Courier::main() {
-    cout << "officeCourier" << endl;
+    cardOffice.prt.debug("officeCourier");
 
 	// responsible for deleting every job that it picks up
 	cardOffice.prt.print(Printer::Courier, cid, 'S');
@@ -19,11 +19,11 @@ void WATCardOffice::Courier::main() {
 		_Accept(~Courier) {
 			break;
 		} _Else {
-    		cout << "officeCourier1"  << endl;
+    		cardOffice.prt.debug("officeCourier1" );
     		// cardOffice.testMethod();	
-    		cout << "officeCourier2"  << endl;
+    		cardOffice.prt.debug("officeCourier2" );
 			Job *job = cardOffice.requestWork(); // blocks until job avaiable
-    		cout << "officeCourier3"  << endl;
+    		cardOffice.prt.debug("officeCourier3" );
 			// job found
 			cardOffice.prt.print(Printer::Courier, cid, 't', job->sid, job->amount);
 			WATCard *watcard = job->card;
@@ -46,7 +46,7 @@ void WATCardOffice::Courier::main() {
 }
 
 void WATCardOffice::testMethod() {
-	cout << "IN TEST" << endl;
+	prt.debug("IN TEST");
 }
 
 WATCardOffice::Courier::Courier(unsigned int cid, Bank &bank, WATCardOffice &cardOffice) : 
@@ -60,12 +60,12 @@ WATCardOffice::~WATCardOffice() {
 
 void WATCardOffice::main() {
 	// Create courier pool
-	cout << "officeMain1"  << endl;
+	prt.debug("officeMain1" );
 	prt.print(Printer::WATCardOffice, 'S');
 	for (unsigned int i = 0; i < numCouriers; i++) {
 		couriers.push_back(new Courier(i, bank, *this));
 	}
-	cout << "officeMain2"  << endl;
+	prt.debug("officeMain2" );
 	while(true){
 		_Accept(~WATCardOffice) {
 			for (unsigned int i = 0; i < numCouriers; i++) {
@@ -81,30 +81,30 @@ void WATCardOffice::main() {
 
 WATCard::FWATCard WATCardOffice::create(unsigned int sid, unsigned int amount) {
 	// Creates new jobs
-    cout << "officeCreate1"  << endl;
+    prt.debug("officeCreate1" );
 
 	Job *job = new Job(sid, amount, NULL);
-    cout << "officeCreate2"  << endl;
+    prt.debug("officeCreate2" );
 	jobs.push(job);
 	prt.print(Printer::WATCardOffice, 'C', sid, amount);
-    cout << "officeCreate3"  << endl;
+    prt.debug("officeCreate3" );
 	return job->result;
 }
 
 WATCard::FWATCard WATCardOffice::transfer(unsigned int sid, unsigned int amount, WATCard *card) {
-    cout << "officeTransfer1"  << endl;
+    prt.debug("officeTransfer1" );
 	Job *job = new Job(sid, amount, card);
-    cout << "officeTransfer2"  << endl;
+    prt.debug("officeTransfer2" );
 	jobs.push(job);
 	prt.print(Printer::WATCardOffice, 'T', sid, amount);
 	return job->result;
 }
 
 WATCardOffice::Job *WATCardOffice::requestWork() {
-	cout << "officeRequestWork1" << endl;
+	prt.debug("officeRequestWork1");
 
 	if (jobs.size() == 0) {
-		cout << "officeRequestWork2"  << endl;
+		prt.debug("officeRequestWork2" );
 		_Accept(WATCardOffice::create) {}
 		or _Accept(WATCardOffice::transfer) {}
 	}

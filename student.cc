@@ -11,16 +11,16 @@ using namespace std;
 
 void Student::main() {
 	prt.print(Printer::Student, 'S', favorite, num_sodas);
-    cout << "student7"  << endl;
+    prt.debug("student7"  );
 	for (unsigned int i = 0; i < num_sodas;) {
-    	cout << "student8"  << endl;
+    	prt.debug("student8"  );
 		yield(mprng(1,10));
-		cout << "student8.5"  << endl;
+		prt.debug("student8.5"  );
 		while(true) {
 			try {
 				if(fcard.available()) {
 					try {
-    					cout << "student9"  << endl;
+    					prt.debug("student9"  );
 						vm->buy(favorite, *fcard());
 						prt.print(Printer::Student, 'B', giftCard()->getBalance());
 					} catch (WATCardOffice::Lost l) {
@@ -33,14 +33,14 @@ void Student::main() {
 					}
 				}
 				else if(giftCard.available()) {
-					cout << "student10"  << endl;
+					prt.debug("student10"  );
 					vm->buy(favorite, *giftCard());
-					cout << "student12"  << endl;
+					prt.debug("student12"  );
 					prt.print(Printer::Student, 'G', giftCard()->getBalance());
-					cout << "student13"  << endl;
+					prt.debug("student13"  );
 					giftCard.reset();
 				}
-				cout << "student11"  << endl;
+				prt.debug("student11"  );
 			} catch (VendingMachine::Stock s) {
 				vm = nameServer.getMachine(id);
 				prt.print(Printer::Student, 'V', vm->getId());
@@ -57,16 +57,16 @@ Student::Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffic
          unsigned int id, unsigned int maxPurchases ): prt(prt), nameServer(nameServer), cardOffice(cardOffice),
          											   groupoff(groupoff), id(id), maxPurchases(maxPurchases) {
     
-    cout << "student1"  << endl;
+    prt.debug("student1"  );
     num_sodas = mprng(1, maxPurchases);
-    cout << "student2"  << endl;
+    prt.debug("student2"  );
     favorite = static_cast<VendingMachine::Flavours>(mprng(VendingMachine::NUM_FLAVOURS-1));
-    cout << "student3"  << endl;
+    prt.debug("student3"  );
     fcard = cardOffice.create(id, 5);
-    cout << "student4"  << endl;
+    prt.debug("student4"  );
     giftCard = groupoff.giftCard();
-    cout << "student5"  << endl;
+    prt.debug("student5"  );
     vm = nameServer.getMachine(id);
-    cout << "student6"  << endl;
+    prt.debug("student6"  );
 
 }

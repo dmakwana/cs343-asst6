@@ -2,6 +2,9 @@
 #include "printer.h"
 #include "bank.h"
 #include "MPRNG.h"
+#include <iostream>
+
+using namespace std;
 
 extern MPRNG mprng;
 
@@ -14,7 +17,7 @@ void Parent::main() {
 			unsigned int randStudent = mprng(numStudents-1);
 			unsigned int randAmount = mprng(1,3);
 			yield(parentalDelay);
-			prt.print(Printer::Parent, 'D', randStudent, randAmount);
+			// prt.print(Printer::Parent, 'D', randStudent, randAmount);
 			bank.deposit(randStudent, randAmount);
 		}
 	}

@@ -1,5 +1,8 @@
 #include "printer.h"
 #include <iostream>
+#include <string>
+
+using namespace std;
 
 void Printer::printParent() {
 	std::cout<< cells[Parent].state;
@@ -172,7 +175,7 @@ Printer::Printer(unsigned int numStudents, unsigned int numVendingMachines,
 }
 
 void Printer::print(Kind kind, char state) {
-	if (state == 'F') flushLine(false);
+    if (cells[kind].set || state == 'F') flushLine(false);
 	cells[kind].set = true;
 	cells[kind].state = state;
 	if (state == 'F') flushLine(true);
@@ -201,7 +204,7 @@ unsigned int Printer::getIdx(Kind kind, unsigned int lid) {
 // Students, Vending Machines, and Couriers
 void Printer::print(Kind kind, unsigned int lid, char state) {
 	unsigned int idx = getIdx(kind, lid);
-	if (state == 'F') flushLine(false);
+	if (cells[idx].set || state == 'F') flushLine(false);
 	cells[idx].set = true;
 	cells[idx].state = state;
 	if (state == 'F') flushLine(true);
@@ -215,4 +218,8 @@ void Printer::print(Kind kind, unsigned int lid, char state, int value1) {
 void Printer::print(Kind kind, unsigned int lid, char state, int value1, int value2) {
 	print(kind, lid, state, value1);
 	cells[getIdx(kind, lid)].value2 = value2;
+}
+
+void Printer::debug(std::string str) {
+	printD(cout << str << endl);
 }
