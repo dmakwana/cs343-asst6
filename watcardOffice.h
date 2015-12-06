@@ -25,10 +25,12 @@ _Task WATCardOffice {
     _Task Courier {
         Bank &bank;
         WATCardOffice &cardOffice;
+      public:
         void main();
         Courier(Bank &bank, WATCardOffice &cardOffice);
     };                 // communicates with bank
     vector<Courier*> couriers;
+    vector<WATCard*> outstandingWATCards;
     void main();
   public:
     _Event Lost {};                        // lost WATCard

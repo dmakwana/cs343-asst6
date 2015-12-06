@@ -2,18 +2,19 @@
 #include "bank.h"
 #include "MPRNG.h"
 
-#include <queue>
-
 extern MPRNG mprng;
 
 void WATCardOffice::main() {
 	// Create courier pool
 	for (unsigned int i = 0; i < numCouriers; i++) {
-		couriers.push_back(new Courier(bank));
+		couriers.push_back(new Courier(bank, *this));
 	}
 	_Accept(~WATCardOffice) {
 		for (unsigned int i = 0; i < numCouriers; i++) {
 			delete couriers[i];
+		}
+		for (unsigned int i = 0; i < outstandingWATCards.size(); i++) {
+			delete outstandingWATCards[i];
 		}
 	}
 }
@@ -24,15 +25,16 @@ void WATCardOffice::Courier::main() {
 		_Accept(~Courier) {
 			break;
 		} _Else {
-			Job *job = requestWork(); // blocks until job avaiable
+			Job *job = cardOffice.requestWork(); // blocks until job avaiable
 			// job found
 			WATCard *watcard = job->card;
 			if (!watcard) {
 				watcard = new WATCard();
+				outstandingWATCards.push_back(watcard);
 			}
 			job->result.reset();
 			if (!mprng(5)) {			// lost the WATcard
-				job->result.exception(Lost());
+				job->result.exception(new Lost);
 			} else {
 				bank.withdraw(job->sid, job->amount);
 				watcard->deposit(job->amount);
@@ -43,7 +45,8 @@ void WATCardOffice::Courier::main() {
 	}
 }
 
-void WATCardOffice::Courier::Courier(Bank &bank) : bank(bank) {}
+WATCardOffice::Courier::Courier(Bank &bank, WATCardOffice &cardOffice) : 
+									 bank(bank), cardOffice(cardOffice) {}
 
 WATCardOffice::WATCardOffice(Printer &prt, Bank &bank, unsigned int numCouriers): 
 							 prt(prt), bank(bank), numCouriers(numCouriers) {}
