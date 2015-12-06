@@ -16,6 +16,7 @@
 #include <vector>
 
 using std::cerr;
+using std::cout;
 using std::endl;
 using std::stringstream;
 using std::dec;
@@ -57,32 +58,41 @@ void uMain::main() {
     processConfigFile(fileName, cparms);
 
     Printer prt(cparms.numStudents, cparms.numVendingMachines, cparms.numCouriers);
+    cout << "1"  << endl;
     Bank bank(cparms.numStudents);
+    cout << "2"  << endl;
     Parent parent(prt, bank, cparms.numStudents, cparms.parentalDelay);
+    cout << "3"  << endl;
     WATCardOffice cardOffice(prt, bank, cparms.numCouriers);
+    cout << "4"  << endl;
     Groupoff groupoff(prt, cparms.numStudents, cparms.sodaCost, cparms.groupoffDelay);
+    cout << "5"  << endl;
     NameServer nameServer(prt, cparms.numVendingMachines, cparms.numStudents);
-
+    cout << "6"  << endl;
     vector<VendingMachine*> vendingMachines;
     for (unsigned int i = 0; i < cparms.numVendingMachines; i++) {
     	vendingMachines.push_back(new VendingMachine(prt, nameServer, i, cparms.sodaCost,
                     								 cparms.maxStockPerFlavour));
     }
 
+    cout << "7"  << endl;
     BottlingPlant *bottlingPlant = new BottlingPlant(prt, nameServer, cparms.numVendingMachines,
                  									 cparms.maxShippedPerFlavour, 
                  									 cparms.maxStockPerFlavour, 
                  									 cparms.timeBetweenShipments);
 
+    cout << "8"  << endl;
     vector<Student*> students;
     for (unsigned int i = 0; i < cparms.numStudents; i++) {
     	students.push_back(new Student(prt, nameServer, cardOffice, groupoff, i, 
     								   cparms.maxPurchases));
     }
 		
+    cout << "9"  << endl;
 	for (unsigned int i = 0; i < cparms.numStudents; i++) {
     	delete students[i];
     }
+    cout << "10"  << endl;
 
     delete bottlingPlant;
 

@@ -9,7 +9,6 @@ void Parent::main() {
 	prt.print(Printer::Parent, 'S');
 	for (;;) {
 		_Accept(~Parent) {
-			prt.print(Printer::Parent, 'F');
 			break;
 		} _Else {					// busy-waiting for call to its destructor
 			unsigned int randStudent = mprng(numStudents-1);
@@ -19,6 +18,7 @@ void Parent::main() {
 			bank.deposit(randStudent, randAmount);
 		}
 	}
+	prt.print(Printer::Parent, 'F');
 }
 
 Parent::Parent(Printer &prt, Bank &bank, unsigned int numStudents, unsigned int parentalDelay) :

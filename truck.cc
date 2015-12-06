@@ -1,5 +1,8 @@
 #include "truck.h"
 #include "MPRNG.h"
+#include <iostream>
+
+using namespace std;
 
 extern MPRNG mprng;
 
@@ -33,7 +36,9 @@ void Truck::main() {
 			unsigned int notReplenished = 0;
 			prt.print(Printer::Truck, 'd', i, totalSodas);
 			VendingMachine* vm = machineList[stocking];
+			cout << "truck1" << endl;
 			unsigned int *stock = vm->inventory();
+			cout << "truck2	" << endl;
 			for (int j = 0; j < VendingMachine::NUM_FLAVOURS; j++) {
 				unsigned int openSpace = maxStockPerFlavour - stock[j];
 				unsigned int restock = cargo[j] > openSpace ? openSpace : cargo[j];

@@ -7,15 +7,23 @@ void NameServer::main() {
 		students[i] = vm_id;
 		vm_id = (vm_id + 1) % numVendingMachines; 
 	}
-	_Accept(~NameServer) {
-		prt.print(Printer::NameServer, 'F');
+	for ( ;; ){
+		_Accept(~NameServer) {
+			prt.print(Printer::NameServer, 'F');
+			break;
+		} or _Accept(VMregister) {}
+	 	or _Accept(getMachine) {}
+	  	or _Accept(getMachineList) {}
 	}
 }
 
-NameServer::NameServer(Printer &prt, unsigned int numVendingMachines, unsigned int numStudents): prt(prt), 
-																								 numVendingMachines(numVendingMachines),
-																								 numStudents(numStudents),
-																								 registered(0) {
+NameServer::NameServer(Printer &prt, 
+					   unsigned int numVendingMachines,
+					   unsigned int numStudents):
+					   prt(prt),
+					   numVendingMachines(numVendingMachines),
+					   numStudents(numStudents),
+					   registered(0) {
 	machineList = new VendingMachine*[numVendingMachines];
 	students = new unsigned int[numStudents];
 }

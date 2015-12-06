@@ -140,7 +140,7 @@ Printer::Printer(unsigned int numStudents, unsigned int numVendingMachines,
 				numVendingMachines(numVendingMachines),
 				numCouriers(numCouriers) {
 	numTotalCells = Student + numStudents + numCouriers + numVendingMachines;
-    std::cout<< "Parent\tGroupoff\tWATOff\tNames\tTruck\tPlant\t";
+    std::cout<< "Parent\tGropoff\tWATOff\tNames\tTruck\tPlant\t";
     
     cells.push_back(Cell(Parent));
     cells.push_back(Cell(Groupoff));
