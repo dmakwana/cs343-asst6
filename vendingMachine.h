@@ -14,6 +14,7 @@ _Task VendingMachine {
     unsigned int *stock;
     WATCard *curr_card;
     bool stocked, funds;
+    uCondition bench;
     void main();
   public:
     enum Flavours { B, C, R, J, NUM_FLAVOURS };                 // flavours of soda (YOU DEFINE)

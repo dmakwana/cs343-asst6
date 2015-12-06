@@ -14,6 +14,7 @@ void VendingMachine::main() {
 		} else {
 			stocked = true;
 		}
+		bench.signal();
 	}
 }
 
@@ -31,6 +32,7 @@ VendingMachine::~VendingMachine(){
 void VendingMachine::buy(Flavours flavour, WATCard &card) {
 	curr_flavour = flavour;
 	curr_card = &card;
+	bench.wait();
 	if (!funds) {
 		_Throw Funds();  
 	}
