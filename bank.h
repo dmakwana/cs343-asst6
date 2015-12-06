@@ -1,6 +1,7 @@
 #pragma once
 
 _Monitor Bank {
+	unsigned int numStudents;
 	unsigned int *accounts;
   public:
     Bank( unsigned int numStudents );
