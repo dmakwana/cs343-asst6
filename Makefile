@@ -2,7 +2,8 @@ CXX = u++					# compiler
 CXXFLAGS = -g -multi -Wall -Wno-unused-label -MMD -O2
 MAKEFILE_NAME = ${firstword ${MAKEFILE_LIST}}	# makefile name
 
-OBJECTS1 = soda.o config.o # list of object files for question 1 prefixed with "q3"
+OBJECTS1 = soda.o config.o bank.o bottlingPlant.o groupOff.o nameServer.o parent.o printer.o student.o truck.o 
+		   vendingMachine.o watcard.o watcardOffice.o # list of object files for question 1 prefixed with "q3"
 EXEC1 = soda
 
 OBJECTS = ${OBJECTS1}				# all object files
