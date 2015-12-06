@@ -1,14 +1,6 @@
 #include "printer.h"
 #include <iostream>
 
-//enum Kind { Parent, Groupoff, WATCardOffice, NameServer, Truck, BottlingPlant, Student, Vending, Courier };
-
-void Printer::resetCellDetails() {
-    for (unsigned int i = 0; i < numTotalCells; i++) {
-        cells[i].set = false;
-    }
-}
-
 void Printer::printParent() {
 	std::cout<< cells[Parent].state;
 	if (cells[Parent].state == 'D') {
@@ -121,6 +113,12 @@ void Printer::printCell(unsigned int id) {
     	printVending(id);
     } else {
     	printCourier(id);
+    }
+}
+
+void Printer::resetCellDetails() {
+    for (unsigned int i = 0; i < numTotalCells; i++) {
+        cells[i].set = false;
     }
 }
 

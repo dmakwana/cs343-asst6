@@ -15,8 +15,8 @@ _Monitor Printer {
 	void printVending(unsigned int id);
 	void printStudent(unsigned int id);
 	void printCourier(unsigned int id);
-	void resetCellDetails();
 	void printCell(unsigned int id);
+	void resetCellDetails();
 	void flushLine(bool finished);
   public:
     enum Kind { Parent, Groupoff, WATCardOffice, NameServer, Truck, BottlingPlant, Student, Vending, Courier };
