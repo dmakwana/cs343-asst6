@@ -20,7 +20,6 @@ void WATCardOffice::Courier::main() {
 				watcard = new WATCard();
 				cardOffice.outstandingWATCards.push_back(watcard);
 			}
-			job->result.reset();
 			if (!mprng(5)) {			// lost the WATcard
 				job->result.exception(new Lost);
 			} else {
@@ -36,6 +35,12 @@ void WATCardOffice::Courier::main() {
 WATCardOffice::Courier::Courier(Bank &bank, WATCardOffice &cardOffice) : 
 									 bank(bank), cardOffice(cardOffice) {}
 
+WATCardOffice::~WATCardOffice() {
+	for (unsigned int i = 0; i < outstandingWATCards.size(); i++) {
+		delete outstandingWATCards[i];
+	}
+}
+
 void WATCardOffice::main() {
 	// Create courier pool
 	for (unsigned int i = 0; i < numCouriers; i++) {
@@ -44,9 +49,6 @@ void WATCardOffice::main() {
 	_Accept(~WATCardOffice) {
 		for (unsigned int i = 0; i < numCouriers; i++) {
 			delete couriers[i];
-		}
-		for (unsigned int i = 0; i < outstandingWATCards.size(); i++) {
-			delete outstandingWATCards[i];
 		}
 	}
 }
