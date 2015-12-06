@@ -2,24 +2,33 @@
 #include "watcard.h"
 #include "bank.h"
 #include "printer.h"
+#include <queue>
 
-class Args{
-
-};
+using std::queue;
 
 _Task WATCardOffice {
     Printer &prt;
     Bank &bank;
     unsigned int numCouriers; 
     struct Job {                           // marshalled arguments and return future
+        struct Args {
+            unsigned int sid;
+            unsigned int amount;
+            bool newWatcard;
+            Args(unsigned int sid, unsigned int amount, bool newWatcard);
+        };
         Args args;                         // call arguments (YOU DEFINE "Args")
         WATCard::FWATCard result;          // return future
-        Job( Args args ) : args( args ) {}
+        Job(Args args);
     };
+    queue<Job*> jobs;
     _Task Courier {
+        Bank &bank;
+        WATCardOffice &cardOffice
         void main();
+        Courier(Bank &bank, WATCardOffice &cardOffice);
     };                 // communicates with bank
-
+    vector<Courier*> couriers;
     void main();
   public:
     _Event Lost {};                        // lost WATCard
