@@ -13,12 +13,14 @@
 #include <sstream>
 #include <iostream>
 #include <string>
+#include <vector>
 
 using std::cerr;
 using std::endl;
 using std::stringstream;
 using std::dec;
 using std::string;
+using std::vector;
 
 MPRNG mprng;
 
@@ -54,12 +56,12 @@ void uMain::main() {
 	ConfigParms cparms;
     processConfigFile(fileName, cparms);
 
-    Printer prt = Printer(cparms.numStudents, cparms.numVendingMachines, cparms.numCouriers);
-    Bank bank = Bank(cparms.numStudents);
-    Parent parent = Parent(prt, bank, cparms.numStudents, cparms.parentalDelay);
-    WATCardOffice cardOffice = WATCardOffice(prt, bank, cparms.numCouriers);
-    Groupoff groupoff = Groupoff(prt, cparms.numStudents, cparms.sodaCost, cparms.groupoffDelay);
-    NameServer nameServer = NameServer(prt, cparms.numVendingMachines, cparms.numStudents);
+    Printer prt(cparms.numStudents, cparms.numVendingMachines, cparms.numCouriers);
+    Bank bank(cparms.numStudents);
+    Parent parent(prt, bank, cparms.numStudents, cparms.parentalDelay);
+    WATCardOffice cardOffice(prt, bank, cparms.numCouriers);
+    Groupoff groupoff(prt, cparms.numStudents, cparms.sodaCost, cparms.groupoffDelay);
+    NameServer nameServer(prt, cparms.numVendingMachines, cparms.numStudents);
 
     vector<VendingMachine*> vendingMachines;
     for (unsigned int i = 0; i < cparms.numVendingMachines; i++) {
@@ -67,7 +69,7 @@ void uMain::main() {
                     								 cparms.maxStockPerFlavour));
     }
 
-    bottlingPlant *bottlingPlant = new BottlingPlant(prt, nameServer, cparms.numVendingMachines,
+    BottlingPlant *bottlingPlant = new BottlingPlant(prt, nameServer, cparms.numVendingMachines,
                  									 cparms.maxShippedPerFlavour, 
                  									 cparms.maxStockPerFlavour, 
                  									 cparms.timeBetweenShipments);

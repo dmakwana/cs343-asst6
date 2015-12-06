@@ -1,5 +1,9 @@
 #include "vendingMachine.h"
 
+void VendingMachine::main() {
+	
+}
+
 VendingMachine::VendingMachine(Printer &prt, NameServer &nameServer, unsigned int id, unsigned int sodaCost,
                     		   unsigned int maxStockPerFlavour): prt(prt), nameServer(nameServer), id(id),
                     		   									 sodaCost(sodaCost), maxStockPerFlavour(maxStockPerFlavour),

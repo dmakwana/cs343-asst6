@@ -1,7 +1,7 @@
 #include "truck.h"
 #include "MPRNG.h"
 
-MPRNG mprng;
+extern MPRNG mprng;
 
 bool Truck::truckEmpty() {
 	for (int i = 0; i < VendingMachine::NUM_FLAVOURS; i++) {
