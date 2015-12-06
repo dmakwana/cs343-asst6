@@ -30,7 +30,7 @@ void WATCardOffice::Courier::main() {
 			WATCard *watcard = job->card;
 			if (!watcard) {
 				watcard = new WATCard();
-				outstandingWATCards.push_back(watcard);
+				cardOffice.outstandingWATCards.push_back(watcard);
 			}
 			job->result.reset();
 			if (!mprng(5)) {			// lost the WATcard
