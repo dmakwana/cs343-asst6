@@ -29,6 +29,7 @@ VendingMachine::VendingMachine(Printer &prt, NameServer &nameServer, unsigned in
                     		   									 sodaCost(sodaCost), maxStockPerFlavour(maxStockPerFlavour),
                     		   									 stocked(true) {
     stock = new unsigned int[NUM_FLAVOURS];
+    nameServer.VMregister(this);
 }
 
 VendingMachine::~VendingMachine() {
