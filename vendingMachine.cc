@@ -1,7 +1,20 @@
 #include "vendingMachine.h"
 
 void VendingMachine::main() {
-	
+	_Accept(inventory) {
+		_Accept(restocked);
+	} or _Accept(buy){
+		if (curr_card->getBalance() < sodaCost) {
+			funds = false;
+		} else {
+			funds = true;
+		}
+		if (!stock[curr_flavour]) {
+			stocked = false;
+		} else {
+			stocked = true;
+		}
+	}
 }
 
 VendingMachine::VendingMachine(Printer &prt, NameServer &nameServer, unsigned int id, unsigned int sodaCost,
@@ -16,13 +29,12 @@ VendingMachine::~VendingMachine(){
 }
 
 void VendingMachine::buy(Flavours flavour, WATCard &card) {
-	if (!stocked) {
-		_Accept(restocked);
-	}
-	if (card.getBalance() < sodaCost) {
+	curr_flavour = flavour;
+	curr_card = &card;
+	if (!funds) {
 		_Throw Funds();  
 	}
-	if (!stock[flavour]) {
+	if (!stocked) {
 		_Throw Stock();
 	}
 	stock[flavour]--;
@@ -30,12 +42,10 @@ void VendingMachine::buy(Flavours flavour, WATCard &card) {
 }
 
 unsigned int *VendingMachine::inventory() {
-	stocked = false;
 	return stock;
 }
 
 void VendingMachine::restocked() {
-	stocked = true;
 }
 
 _Nomutex unsigned int VendingMachine::cost() {

@@ -12,7 +12,8 @@ _Task VendingMachine {
     unsigned int sodaCost;
     unsigned int maxStockPerFlavour;
     unsigned int *stock;
-    bool stocked;
+    WATCard *curr_card;
+    bool stocked, funds;
     void main();
   public:
     enum Flavours { B, C, R, J, NUM_FLAVOURS };                 // flavours of soda (YOU DEFINE)
@@ -26,4 +27,6 @@ _Task VendingMachine {
     void restocked();
     _Nomutex unsigned int cost();
     _Nomutex unsigned int getId();
+  private:
+    Flavours curr_flavour;
 };
