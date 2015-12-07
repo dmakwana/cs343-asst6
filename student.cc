@@ -10,7 +10,7 @@ extern MPRNG mprng;
 using namespace std;
 
 void Student::main() {
-	prt.print(Printer::Student, 'S', favorite, num_sodas);
+	prt.print(Printer::Student, id, 'S', favorite, num_sodas);
     prt.debug("student7"  );
 	for (unsigned int i = 0; i < num_sodas;) {
     	prt.debug("student8"  );
@@ -22,9 +22,9 @@ void Student::main() {
 					try {
     					prt.debug("student9"  );
 						vm->buy(favorite, *fcard());
-						prt.print(Printer::Student, 'B', giftCard()->getBalance());
+						prt.print(Printer::Student, id, 'B', giftCard()->getBalance());
 					} catch (WATCardOffice::Lost l) {
-						prt.print(Printer::Student, 'L');
+						prt.print(Printer::Student, id, 'L');
 						fcard = cardOffice.create(id, 5);
 						continue;
 					} catch (VendingMachine::Funds f) {
@@ -36,21 +36,21 @@ void Student::main() {
 					prt.debug("student10"  );
 					vm->buy(favorite, *giftCard());
 					prt.debug("student12"  );
-					prt.print(Printer::Student, 'G', giftCard()->getBalance());
+					prt.print(Printer::Student, id, 'G', giftCard()->getBalance());
 					prt.debug("student13"  );
 					giftCard.reset();
 				}
 				prt.debug("student11"  );
 			} catch (VendingMachine::Stock s) {
 				vm = nameServer.getMachine(id);
-				prt.print(Printer::Student, 'V', vm->getId());
+				prt.print(Printer::Student, id, 'V', vm->getId());
 				break;
 			}
 			i++;
 			break;
 		}
 	}
-	prt.print(Printer::Student, 'F');
+	prt.print(Printer::Student, id, 'F');
 }
 
 Student::Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffice, Groupoff &groupoff,
