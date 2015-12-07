@@ -4,19 +4,115 @@ WATCola Concurrent Program
 
 USER INTERFACE TESTING
 
-	There is no user interface testing for this module since it's basically tested from previous documents
+	There is no user interface testing for this module since the seed is basically tested from previous documents and the config params module is assumed to work to spec.
 
 ALGORITHM TESTING
 
 	TEST 1
 	------
 	Output with given soda.config
+	SodaCost                2
+	NumStudents             2
+	MaxPurchases            8
+	NumVendingMachines      3
+	MaxStockPerFlavour      5
+	MaxShippedPerFlavour    3
+	                         
+	TimeBetweenShipments    3
+	GroupoffDelay          10
+	ParentalDelay           2
+	NumCouriers             1
+
+	Output (with seed 46671):
+	Parent	Gropoff	WATOff	Names	Truck	Plant	Stud0	Stud1	Mach0	Mach1	Mach2	Cour0	
+	*******	*******	*******	*******	*******	*******	*******	*******	*******	*******	*******	*******	
+	S	S	S	S								S	
+	D1,1			R0					S2				
+	D1,1			R1						S2			
+	D1,1		C0,5	R2		S					S2		
+				N0,0			S1,1						
+	D0,1		W			G2	V0					t0,5	
+	D0,2		C1,5	N1,1	S			S0,1					
+	D0,1							V1					
+	D1,2				P2								
+					d0,2				r				
+					U0,18								
+	D0,2				D0,0	P							
+						G5						T0,5	
+												t1,5	
+	D1,3		W	N1,2				V2	R			T1,5	
+	D1,1	D2		N0,1			V1						
+	D1,2				P5								
+					d0,5					r			
+					U0,15								
+					D0,0	P							
+	D0,2			N1,0		G6		V0		R			
+	D0,3												
+	D0,3			N0,2	P6		V2						
+					d0,6						r		
+					U0,14								
+					D0,0	P							
+	D1,3	D2				G7					R		
+	D0,1			N1,1				V1					
+	D0,1							B3		B0,2			
+	...	...	...	...	...	...	...	F	...	...	...	...	
+					P7								
+					d0,7				r				
+					U0,11								
+	D1,2				D0,0	P							
+						G5	B3				B1,0		
+	...	...	...	...	...	...	F	...	...	...	...	...	
+	D1,1								R				
+	D1,3												
+	...	F	...	...	...	...	...	...	...	...	...	...	
+	D1,3				P0								
+					d0,0					r			
+					U0,16								
+					D0,0								
+	...	...	...	...	...	F	...	...	...	...	...	...	
+	D0,2									R			
+	D0,2												
+	D1,3												
+	D1,3												
+	D0,2												
+	...	...	...	...	F	...	...	...	...	...	...	...	
+	D1,1												
+	...	...	...	...	...	...	...	...	F	...	...	...	
+	D0,2												
+	...	...	...	...	...	...	...	...	...	F	...	...	
+	D1,2												
+	...	...	...	...	...	...	...	...	...	...	F	...	
+	D1,2												
+	...	...	F	...	...	...	...	...	...	...	...	...	
+	D1,1												
+	...	...	...	...	...	...	...	...	...	...	...	F	
+	D1,2												
+	...	...	...	F	...	...	...	...	...	...	...	...	
+	D0,3												
+	D0,2												
+	F	...	...	...	...	...	...	...	...	...	...	...	
+	***********************
 
 	Analysis:
+	
 
 	TEST 2
 	------
-	
+	Tested with configuration with many sodas and more students. Configuration:
+	SodaCost                2 
+	NumStudents             5 
+	MaxPurchases            50 
+	NumVendingMachines      3 
+	MaxStockPerFlavour      5 
+	MaxShippedPerFlavour    3 
+	TimeBetweenShipments    3 
+	GroupoffDelay           10 
+	ParentalDelay           2 
+	NumCouriers             1 
+
+	Output (with seed 46671):
+
+
 	Analyis:
 	
 	TEST 3
