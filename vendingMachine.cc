@@ -8,17 +8,8 @@ void VendingMachine::main() {
 		} or _Accept(inventory) {
 			_Accept(restocked);
 		} or _Accept(buy){
-			if (curr_card->getBalance() < sodaCost) {
-				funds = false;
-			} else {
-				funds = true;
-			}
-			if (!stock[curr_flavour]) {
-				stocked = false;
-			} else {
-				stocked = true;
-			}
-			bench.signal();
+			
+			// bench.signal();
 		}
 	}
 	prt.print(Printer::Vending, id, 'F');
@@ -39,7 +30,19 @@ VendingMachine::~VendingMachine() {
 void VendingMachine::buy(Flavours flavour, WATCard &card) {
 	curr_flavour = flavour;
 	curr_card = &card;
-	bench.wait();
+	// bench.wait();
+
+	if (curr_card->getBalance() < sodaCost) {
+		funds = false;
+	} else {
+		funds = true;
+	}
+	if (!stock[curr_flavour]) {
+		stocked = false;
+	} else {
+		stocked = true;
+	}
+
 	if (!funds) {
 		_Throw Funds();  
 	}
