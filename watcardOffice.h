@@ -37,7 +37,6 @@ _Task WATCardOffice {
     _Event Lost {};                        // lost WATCard
     WATCardOffice(Printer &prt, Bank &bank, unsigned int numCouriers);
     ~WATCardOffice();
-    void testMethod();
     WATCard::FWATCard create(unsigned int sid, unsigned int amount);
     WATCard::FWATCard transfer(unsigned int sid, unsigned int amount, WATCard *card);
     Job *requestWork();

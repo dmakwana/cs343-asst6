@@ -25,7 +25,7 @@ NameServer::NameServer(Printer &prt,
 					   numStudents(numStudents),
 					   registered(0) {
 	machineList = new VendingMachine*[numVendingMachines];
-	students = new unsigned int[numStudents];
+	students = new unsigned int[numStudents]();
 }
 
 NameServer::~NameServer() {

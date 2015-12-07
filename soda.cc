@@ -56,46 +56,46 @@ void uMain::main() {
     }
 	ConfigParms cparms;
     processConfigFile(fileName, cparms);
+    {
+        Printer prt(cparms.numStudents, cparms.numVendingMachines, cparms.numCouriers);
+        prt.debug("1");
+        Bank bank(cparms.numStudents);
+        prt.debug("2");
+        Parent parent(prt, bank, cparms.numStudents, cparms.parentalDelay);
+        prt.debug("3");
+        WATCardOffice cardOffice(prt, bank, cparms.numCouriers);
+        prt.debug("4");
+        Groupoff groupoff(prt, cparms.numStudents, cparms.sodaCost, cparms.groupoffDelay);
+        prt.debug("5");
+        NameServer nameServer(prt, cparms.numVendingMachines, cparms.numStudents);
+        prt.debug("6");
+        vector<VendingMachine*> vendingMachines;
+        for (unsigned int i = 0; i < cparms.numVendingMachines; i++) {
+        	vendingMachines.push_back(new VendingMachine(prt, nameServer, i, cparms.sodaCost,
+                        								 cparms.maxStockPerFlavour));
+        }
 
-    Printer prt(cparms.numStudents, cparms.numVendingMachines, cparms.numCouriers);
-    prt.debug("1");
-    Bank bank(cparms.numStudents);
-    prt.debug("2");
-    Parent parent(prt, bank, cparms.numStudents, cparms.parentalDelay);
-    prt.debug("3");
-    WATCardOffice cardOffice(prt, bank, cparms.numCouriers);
-    prt.debug("4");
-    Groupoff groupoff(prt, cparms.numStudents, cparms.sodaCost, cparms.groupoffDelay);
-    prt.debug("5");
-    NameServer nameServer(prt, cparms.numVendingMachines, cparms.numStudents);
-    prt.debug("6");
-    vector<VendingMachine*> vendingMachines;
-    for (unsigned int i = 0; i < cparms.numVendingMachines; i++) {
-    	vendingMachines.push_back(new VendingMachine(prt, nameServer, i, cparms.sodaCost,
-                    								 cparms.maxStockPerFlavour));
+        prt.debug("7");
+        BottlingPlant *bottlingPlant = new BottlingPlant(prt, nameServer, cparms.numVendingMachines,
+                     									 cparms.maxShippedPerFlavour, 
+                     									 cparms.maxStockPerFlavour, 
+                     									 cparms.timeBetweenShipments);
+
+        prt.debug("8");
+        vector<Student*> students;
+        for (unsigned int i = 0; i < cparms.numStudents; i++) {
+        	students.push_back(new Student(prt, nameServer, cardOffice, groupoff, i, 
+        								   cparms.maxPurchases));
+        }
+    		
+        prt.debug("9");
+    	for (unsigned int i = 0; i < cparms.numStudents; i++) {
+        	delete students[i];
+        }
+        prt.debug("10");
+
+        delete bottlingPlant;
     }
-
-    prt.debug("7");
-    BottlingPlant *bottlingPlant = new BottlingPlant(prt, nameServer, cparms.numVendingMachines,
-                 									 cparms.maxShippedPerFlavour, 
-                 									 cparms.maxStockPerFlavour, 
-                 									 cparms.timeBetweenShipments);
-
-    prt.debug("8");
-    vector<Student*> students;
-    for (unsigned int i = 0; i < cparms.numStudents; i++) {
-    	students.push_back(new Student(prt, nameServer, cardOffice, groupoff, i, 
-    								   cparms.maxPurchases));
-    }
-		
-    prt.debug("9");
-	for (unsigned int i = 0; i < cparms.numStudents; i++) {
-    	delete students[i];
-    }
-    prt.debug("10");
-
-    delete bottlingPlant;
-
     std::cout << "***********************" << std::endl;
     return;
 }

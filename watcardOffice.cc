@@ -45,10 +45,6 @@ void WATCardOffice::Courier::main() {
 	cardOffice.prt.print(Printer::Courier, cid, 'F');
 }
 
-void WATCardOffice::testMethod() {
-	prt.debug("IN TEST");
-}
-
 WATCardOffice::Courier::Courier(unsigned int cid, Bank &bank, WATCardOffice &cardOffice) : 
 								cid(cid), bank(bank), cardOffice(cardOffice) {}
 
@@ -66,7 +62,7 @@ void WATCardOffice::main() {
 		couriers.push_back(new Courier(i, bank, *this));
 	}
 	prt.debug("officeMain2" );
-	while(true){
+	for ( ;; ) {
 		_Accept(~WATCardOffice) {
 			for (unsigned int i = 0; i < numCouriers; i++) {
 				delete couriers[i];

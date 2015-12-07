@@ -29,7 +29,7 @@ VendingMachine::VendingMachine(Printer &prt, NameServer &nameServer, unsigned in
                     		   unsigned int maxStockPerFlavour): prt(prt), nameServer(nameServer), id(id),
                     		   									 sodaCost(sodaCost), maxStockPerFlavour(maxStockPerFlavour),
                     		   									 stocked(true) {
-    stock = new unsigned int[NUM_FLAVOURS];
+    stock = new unsigned int[NUM_FLAVOURS]();
     nameServer.VMregister(this);
 }
 
@@ -41,13 +41,19 @@ void VendingMachine::buy(Flavours flavour, WATCard &card) {
 	curr_flavour = flavour;
 	curr_card = &card;
 	bench.wait();
+	prt.debug("before:");
+	prt.debug(std::to_string(stock[flavour]));
 	if (!funds) {
 		_Throw Funds();  
 	}
 	if (!stocked) {
 		_Throw Stock();
 	}
-	stock[flavour]--;
+	if (stock[flavour]) {
+		stock[flavour]--;
+	} else {
+		prt.debug("trying to decrement 0 stock");
+	}
 	card.withdraw(sodaCost);
 	prt.print(Printer::Vending, id, 'B', flavour, stock[flavour]);
 }

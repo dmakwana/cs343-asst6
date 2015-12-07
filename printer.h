@@ -16,6 +16,7 @@ _Monitor Printer {
 	unsigned int numVendingMachines;
 	unsigned int numCouriers;
 	unsigned int numTotalCells;
+	bool lineFilled;
 	void printParent();
 	void printGroupoff();
 	void printWATOff();
