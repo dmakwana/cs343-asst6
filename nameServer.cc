@@ -41,8 +41,8 @@ void NameServer::VMregister(VendingMachine *vendingmachine) {
 
 VendingMachine *NameServer::getMachine(unsigned int id) {
 	VendingMachine *vm = machineList[students[id]];
-	students[id] = (students[id] + 1) % numVendingMachines;
 	prt.print(Printer::NameServer, 'N', id, students[id]);
+	students[id] = (students[id] + 1) % numVendingMachines;
 	return vm;   
 }
 
