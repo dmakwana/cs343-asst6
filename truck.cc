@@ -37,12 +37,14 @@ void Truck::main() {
 			for (int j = 0; j < VendingMachine::NUM_FLAVOURS; j++) {
 				unsigned int openSpace = maxStockPerFlavour - stock[j];
 				unsigned int restock = cargo[j] > openSpace ? openSpace : cargo[j];
+
 				if (restock != openSpace) {
 					notReplenished += openSpace - restock;
 				}
 				cargo[j] -= restock;
 				totalSodas -= restock;
 				stock[j] += restock;
+				// std::cout << "Stock Vending Machine: " << i << " Flavour: " << j << " Amount: " << stock[j] << std::endl;
 			}
 			if (notReplenished) {
 				prt.print(Printer::Truck, 'U', i, notReplenished);
