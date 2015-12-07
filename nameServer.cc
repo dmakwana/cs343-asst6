@@ -1,4 +1,5 @@
 #include "nameServer.h"
+#include "VendingMachine.h"
 
 void NameServer::main() {
 	prt.print(Printer::NameServer, 'S');
@@ -34,7 +35,7 @@ NameServer::~NameServer() {
 }
 
 void NameServer::VMregister(VendingMachine *vendingmachine) {
-	prt.print(Printer::NameServer, 'R', registered);
+	prt.print(Printer::NameServer, 'R', vendingmachine->getId());
 	machineList[registered] = vendingmachine;
 	registered++;
 }
