@@ -7,7 +7,7 @@ using namespace std;
 void Printer::printParent() {
 	std::cout<< cells[Parent].state;
 	if (cells[Parent].state == 'D') {
-		std::cout<< " " << cells[Parent].value1 << "," << cells[Parent].value2;
+		std::cout << cells[Parent].value1 << "," << cells[Parent].value2;
 	}
 	std::cout<< "\t";
 }
@@ -15,7 +15,7 @@ void Printer::printParent() {
 void Printer::printGroupoff() {
 	std::cout<< cells[Groupoff].state;
 	if (cells[Groupoff].state == 'D') {
-		std::cout<< " " << cells[Groupoff].value1;
+		std::cout << cells[Groupoff].value1;
 	}
 	std::cout<< "\t";
 }
@@ -23,7 +23,7 @@ void Printer::printGroupoff() {
 void Printer::printWATOff() {
 	std::cout<< cells[WATCardOffice].state;
 	if (cells[WATCardOffice].state == 'C' || cells[WATCardOffice].state == 'T') {
-		std::cout<< " " << cells[WATCardOffice].value1 << "," << cells[WATCardOffice].value2;
+		std::cout << cells[WATCardOffice].value1 << "," << cells[WATCardOffice].value2;
 	}
 	std::cout<< "\t";
 }
@@ -31,9 +31,9 @@ void Printer::printWATOff() {
 void Printer::printNameServer() {
 	std::cout<< cells[NameServer].state;
 	if (cells[NameServer].state == 'R') {
-		std::cout<< " " << cells[NameServer].value1;
+		std::cout << cells[NameServer].value1;
 	} else if (cells[NameServer].state == 'N') {
-		std::cout<< " " << cells[NameServer].value1 << "," << cells[NameServer].value2;
+		std::cout << cells[NameServer].value1 << "," << cells[NameServer].value2;
 	}
 	std::cout<< "\t";
 }
@@ -41,11 +41,11 @@ void Printer::printNameServer() {
 void Printer::printTruck() {
 	std::cout<< cells[Truck].state;
 	if (cells[Truck].state == 'P') {
-		std::cout<< " " << cells[Truck].value1;
+		std::cout << cells[Truck].value1;
 	} else if (cells[Truck].state == 'd' || 
 				cells[Truck].state == 'U'  || 
 				cells[Truck].state == 'D' ) {
-		std::cout<< " " << cells[Truck].value1 << "," << cells[Truck].value2;
+		std::cout << cells[Truck].value1 << "," << cells[Truck].value2;
 	}
 	std::cout<< "\t";
 }
@@ -53,7 +53,7 @@ void Printer::printTruck() {
 void Printer::printBottlingPlant() {
 	std::cout<< cells[BottlingPlant].state;
 	if (cells[BottlingPlant].state == 'G') {
-		std::cout<< " " << cells[BottlingPlant].value1;
+		std::cout << cells[BottlingPlant].value1;
 	}
 	std::cout<< "\t";
 }
@@ -61,9 +61,9 @@ void Printer::printBottlingPlant() {
 void Printer::printStudent(unsigned int id) {
 	std::cout<< cells[id].state;
 	if (cells[id].state == 'V' || cells[id].state == 'G' || cells[id].state == 'B') {
-		std::cout<< " " << cells[id].value1;
+		std::cout << cells[id].value1;
 	} else if (cells[id].state == 'S') {
-		std::cout<< " " << cells[id].value1 << "," << cells[id].value2;
+		std::cout << cells[id].value1 << "," << cells[id].value2;
 	}
 	std::cout<< "\t";
 }
@@ -81,7 +81,7 @@ void Printer::printVending(unsigned int id) {
 void Printer::printCourier(unsigned int id) {
 	std::cout<< cells[id].state;
 	if (cells[id].state == 't' || cells[id].state == 'T') {
-		std::cout<< " " << cells[id].value1 << "," << cells[id].value2;
+		std::cout << cells[id].value1 << "," << cells[id].value2;
 	}
 	std::cout<< "\t";
 }
