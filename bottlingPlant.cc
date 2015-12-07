@@ -17,7 +17,7 @@ void BottlingPlant::main() {
 			productionRun[i] = mprng(maxShippedPerFlavour);
 			totalSodas += productionRun[i];
 		}
-		prt.print(Printer::BottlingPlant, 'G', totalSodas);
+		// prt.print(Printer::BottlingPlant, 'G', totalSodas);
 
 		yield(timeBetweenShipments);
 		// Wait for truck to pick up the production run before starting new one
@@ -26,7 +26,7 @@ void BottlingPlant::main() {
 			_Accept(getShipment) {}
 			break;
 		} or _Accept(getShipment) {
-			prt.print(Printer::BottlingPlant, 'P');
+			// prt.print(Printer::BottlingPlant, 'P');
 		}
 	}
 	prt.print(Printer::BottlingPlant, 'F');

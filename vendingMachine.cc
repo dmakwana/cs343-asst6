@@ -52,12 +52,12 @@ void VendingMachine::buy(Flavours flavour, WATCard &card) {
 }
 
 unsigned int *VendingMachine::inventory() {
-	prt.print(Printer::Vending, id, 'r');
+	//prt.print(Printer::Vending, id, 'r');
 	return stock;
 }
 
 void VendingMachine::restocked() {
-	prt.print(Printer::Vending, id, 'R');
+	// prt.print(Printer::Vending, id, 'R');
 }
 
 _Nomutex unsigned int VendingMachine::cost() {
