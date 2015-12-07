@@ -53,6 +53,7 @@ void Truck::main() {
 				prt.print(Printer::Truck, 'U', i, notReplenished);
 			}
 			prt.print(Printer::Truck, 'D', i, totalSodas);
+			vm->restocked();
 			stocking = (stocking + 1) % numVendingMachines;
 			if (truckEmpty()) {
 				break;
