@@ -10,7 +10,6 @@ void Groupoff::main() {
     }
     while (true) {
         _Accept(~Groupoff) {
-            prt.print(Printer::Groupoff, 'F');
             break;
         } _Else {
             yield(groupoffDelay);
@@ -23,6 +22,7 @@ void Groupoff::main() {
             giftCards[id].delivery(&watCards[id]);
         }
     }
+    prt.print(Printer::Groupoff, 'F');
 }
 
 Groupoff::Groupoff(Printer &prt, unsigned int numStudents, unsigned int sodaCost,
