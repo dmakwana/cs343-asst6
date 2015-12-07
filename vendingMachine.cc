@@ -40,8 +40,9 @@ VendingMachine::~VendingMachine() {
 void VendingMachine::buy(Flavours flavour, WATCard &card) {
 	curr_flavour = flavour;
 	curr_card = &card;
+	// std::cout << "waiting" << std::endl;
 	bench.wait();
-	prt.debug("before:");
+	// std::cout << "released" << std::endl;
 	prt.debug(std::to_string(stock[flavour]));
 	if (!funds) {
 		_Throw Funds();  
@@ -49,17 +50,19 @@ void VendingMachine::buy(Flavours flavour, WATCard &card) {
 	if (!stocked) {
 		_Throw Stock();
 	}
+	prt.debug("past throws");
 	if (stock[flavour]) {
 		stock[flavour]--;
 	} else {
 		prt.debug("trying to decrement 0 stock");
 	}
 	card.withdraw(sodaCost);
+	prt.debug("withdrew");
 	prt.print(Printer::Vending, id, 'B', flavour, stock[flavour]);
 }
 
 unsigned int *VendingMachine::inventory() {
-	//prt.print(Printer::Vending, id, 'r');
+	prt.print(Printer::Vending, id, 'r');
 	return stock;
 }
 

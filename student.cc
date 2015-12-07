@@ -17,11 +17,14 @@ void Student::main() {
 		prt.debug("student8.5"  );
 		while(true) {
 			try {
+				prt.debug("student loop"  );
+
 				if(fcard.available()) {
 					try {
     					prt.debug("student9"  );
 						vm->buy(favorite, *fcard());
-						prt.print(Printer::Student, id, 'B', giftCard()->getBalance());
+						prt.print(Printer::Student, id, 'B', fcard()->getBalance());
+						// prt.print(Printer::Student, id, 'B', giftCard()->getBalance());
 						i++;
 						break;
 					} catch (WATCardOffice::Lost l) {
@@ -33,13 +36,12 @@ void Student::main() {
 						break;
 					}
 				}
-				else if(giftCard.available()) {
+				if(giftCard.available()) {
 					prt.debug("student10"  );
 					vm->buy(favorite, *giftCard());
-					prt.debug("student12"  );
 					prt.print(Printer::Student, id, 'G', giftCard()->getBalance());
-					prt.debug("student13"  );
 					giftCard.reset();
+					prt.debug("student14"  );
 					i++;
 					break;
 				}
@@ -49,8 +51,8 @@ void Student::main() {
 				prt.print(Printer::Student, id, 'V', vm->getId());
 				break;
 			}
-			
 		}
+		// std::cout << "student here!" << std::endl;
 	}
 	prt.print(Printer::Student, id, 'F');
 }
@@ -59,18 +61,12 @@ Student::Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffic
          unsigned int id, unsigned int maxPurchases ): prt(prt), nameServer(nameServer), cardOffice(cardOffice),
          											   groupoff(groupoff), id(id), maxPurchases(maxPurchases) {
     
-    prt.debug("student1"  );
     num_sodas = mprng(1, maxPurchases);
-    prt.debug("student2"  );
     favorite = static_cast<VendingMachine::Flavours>(mprng(VendingMachine::NUM_FLAVOURS-1));
-    prt.debug("student3"  );
     fcard = cardOffice.create(id, 5);
-    prt.debug("student4"  );
     giftCard = groupoff.giftCard();
-    prt.debug("student5"  );
     vm = nameServer.getMachine(id);
     prt.print(Printer::Student, id, 'S', favorite, num_sodas);
     prt.print(Printer::Student, id, 'V', vm->getId());
-    prt.debug("student6"  );
 
 }
