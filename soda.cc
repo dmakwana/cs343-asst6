@@ -92,6 +92,10 @@ void uMain::main() {
     	for (unsigned int i = 0; i < cparms.numStudents; i++) {
         	delete students[i];
         }
+
+        for (unsigned int i = 0; i < cparms.numVendingMachines; i++) {
+            delete vendingMachines[i];
+        }
         prt.debug("10");
 
         delete bottlingPlant;
