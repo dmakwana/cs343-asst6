@@ -1,4 +1,5 @@
 #include "vendingMachine.h"
+#include <iostream>
 
 void VendingMachine::main() {
 	prt.print(Printer::Vending, id, 'S', sodaCost);
@@ -8,8 +9,17 @@ void VendingMachine::main() {
 		} or _Accept(inventory) {
 			_Accept(restocked);
 		} or _Accept(buy){
-			
-			// bench.signal();
+			if (curr_card->getBalance() < sodaCost) {
+				funds = false;
+			} else {
+				funds = true;
+			}
+			if (!stock[curr_flavour]) {
+				stocked = false;
+			} else {
+				stocked = true;
+			}
+			bench.signalBlock();
 		}
 	}
 	prt.print(Printer::Vending, id, 'F');
@@ -30,19 +40,7 @@ VendingMachine::~VendingMachine() {
 void VendingMachine::buy(Flavours flavour, WATCard &card) {
 	curr_flavour = flavour;
 	curr_card = &card;
-	// bench.wait();
-
-	if (curr_card->getBalance() < sodaCost) {
-		funds = false;
-	} else {
-		funds = true;
-	}
-	if (!stock[curr_flavour]) {
-		stocked = false;
-	} else {
-		stocked = true;
-	}
-
+	bench.wait();
 	if (!funds) {
 		_Throw Funds();  
 	}
