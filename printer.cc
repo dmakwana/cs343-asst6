@@ -2,8 +2,6 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
-
 void Printer::printParent() {
 	std::cout<< cells[Parent].state;
 	if (cells[Parent].state == 'D') {
@@ -71,9 +69,9 @@ void Printer::printStudent(unsigned int id) {
 void Printer::printVending(unsigned int id) {
 	std::cout<< cells[id].state;
 	if (cells[id].state == 'S') {
-		std::cout << " " << cells[id].value1;
+		std::cout << cells[id].value1;
 	} else if (cells[id].state == 'B') {
-		std::cout << " " << cells[id].value1 << "," << cells[id].value2;
+		std::cout << cells[id].value1 << "," << cells[id].value2;
 	}
 	std::cout<< "\t";
 }
@@ -229,6 +227,3 @@ void Printer::print(Kind kind, unsigned int lid, char state, int value1, int val
 	cells[getIdx(kind, lid)].value2 = value2;
 }
 
-void Printer::debug(std::string str) {
-	printD(cout << str << endl);
-}

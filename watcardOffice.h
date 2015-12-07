@@ -7,9 +7,6 @@
 #include <queue>
 #include <vector>
 
-using std::queue;
-using std::vector;
-
 _Task WATCardOffice {
     Printer &prt;
     Bank &bank;
@@ -22,7 +19,7 @@ _Task WATCardOffice {
         bool end;        
         Job(unsigned int sid, unsigned int amount, WATCard* card);
     };
-    queue<Job*> jobs;
+    std::queue<Job*> jobs;
     _Task Courier {
         unsigned int cid;
         Bank &bank;
@@ -31,8 +28,8 @@ _Task WATCardOffice {
         void main();
         Courier(unsigned int cid, Bank &bank, WATCardOffice &cardOffice);
     };                 // communicates with bank
-    vector<Courier*> couriers;
-    vector<WATCard*> outstandingWATCards;
+    std::vector<Courier*> couriers;
+    std::vector<WATCard*> outstandingWATCards;
     void main();
   public:
     _Event Lost {};                        // lost WATCard

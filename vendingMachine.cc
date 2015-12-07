@@ -1,5 +1,4 @@
 #include "vendingMachine.h"
-#include <iostream>
 
 void VendingMachine::main() {
 	prt.print(Printer::Vending, id, 'S', sodaCost);
@@ -40,24 +39,18 @@ VendingMachine::~VendingMachine() {
 void VendingMachine::buy(Flavours flavour, WATCard &card) {
 	curr_flavour = flavour;
 	curr_card = &card;
-	// std::cout << "waiting" << std::endl;
 	bench.wait();
-	// std::cout << "released" << std::endl;
-	prt.debug(std::to_string(stock[flavour]));
 	if (!funds) {
 		_Throw Funds();  
 	}
 	if (!stocked) {
 		_Throw Stock();
 	}
-	prt.debug("past throws");
 	if (stock[flavour]) {
 		stock[flavour]--;
 	} else {
-		prt.debug("trying to decrement 0 stock");
 	}
 	card.withdraw(sodaCost);
-	prt.debug("withdrew");
 	prt.print(Printer::Vending, id, 'B', flavour, stock[flavour]);
 }
 

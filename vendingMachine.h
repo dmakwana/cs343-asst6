@@ -17,9 +17,9 @@ _Task VendingMachine {
     uCondition bench;
     void main();
   public:
-    enum Flavours { B, C, R, J, NUM_FLAVOURS };                 // flavours of soda (YOU DEFINE)
-    _Event Funds {};                       // insufficient funds
-    _Event Stock {};                       // out of stock for particular flavour
+    enum Flavours { B, C, R, J, NUM_FLAVOURS };     // flavours of soda
+    _Event Funds {};                                // insufficient funds
+    _Event Stock {};                                // out of stock for particular flavour
     VendingMachine( Printer &prt, NameServer &nameServer, unsigned int id, unsigned int sodaCost,
                     unsigned int maxStockPerFlavour );
     ~VendingMachine();

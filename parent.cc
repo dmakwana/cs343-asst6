@@ -2,9 +2,6 @@
 #include "printer.h"
 #include "bank.h"
 #include "MPRNG.h"
-#include <iostream>
-
-using namespace std;
 
 extern MPRNG mprng;
 

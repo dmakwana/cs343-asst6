@@ -1,9 +1,6 @@
 #include "watcardOffice.h"
 #include "bank.h"
 #include "MPRNG.h"
-#include <iostream>
-
-using namespace std;
 
 extern MPRNG mprng;
 
@@ -84,9 +81,7 @@ WATCard::FWATCard WATCardOffice::create(unsigned int sid, unsigned int amount) {
 }
 
 WATCard::FWATCard WATCardOffice::transfer(unsigned int sid, unsigned int amount, WATCard *card) {
-    prt.debug("officeTransfer1" );
 	Job *job = new Job(sid, amount, card);
-    prt.debug("officeTransfer2" );
 	jobs.push(job);
 	prt.print(Printer::WATCardOffice, 'T', sid, amount);
 	return job->result;

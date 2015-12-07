@@ -3,28 +3,17 @@
 #include "groupOff.h"
 #include "MPRNG.h"
 
-#include <iostream>
-
 extern MPRNG mprng;
 
-using namespace std;
-
 void Student::main() {
-    prt.debug("student7"  );
 	for (unsigned int i = 0; i < num_sodas;) {
-    	prt.debug("student8"  );
 		yield(mprng(1,10));
-		prt.debug("student8.5"  );
 		while(true) {
 			try {
-				prt.debug("student loop"  );
-
 				if(fcard.available()) {
 					try {
-    					prt.debug("student9"  );
 						vm->buy(favorite, *fcard());
 						prt.print(Printer::Student, id, 'B', fcard()->getBalance());
-						// prt.print(Printer::Student, id, 'B', giftCard()->getBalance());
 						i++;
 						break;
 					} catch (WATCardOffice::Lost l) {
@@ -37,22 +26,19 @@ void Student::main() {
 					}
 				}
 				if(giftCard.available()) {
-					prt.debug("student10"  );
 					vm->buy(favorite, *giftCard());
 					prt.print(Printer::Student, id, 'G', giftCard()->getBalance());
 					giftCard.reset();
-					prt.debug("student14"  );
 					i++;
 					break;
 				}
-				// prt.debug("student11"  );
+			
 			} catch (VendingMachine::Stock s) {
 				vm = nameServer.getMachine(id);
 				prt.print(Printer::Student, id, 'V', vm->getId());
 				break;
 			}
 		}
-		// std::cout << "student here!" << std::endl;
 	}
 	prt.print(Printer::Student, id, 'F');
 }
@@ -60,7 +46,6 @@ void Student::main() {
 Student::Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffice, Groupoff &groupoff,
          unsigned int id, unsigned int maxPurchases ): prt(prt), nameServer(nameServer), cardOffice(cardOffice),
          											   groupoff(groupoff), id(id), maxPurchases(maxPurchases) {
-    
     num_sodas = mprng(1, maxPurchases);
     favorite = static_cast<VendingMachine::Flavours>(mprng(VendingMachine::NUM_FLAVOURS-1));
     fcard = cardOffice.create(id, 5);
@@ -68,5 +53,4 @@ Student::Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffic
     vm = nameServer.getMachine(id);
     prt.print(Printer::Student, id, 'S', favorite, num_sodas);
     prt.print(Printer::Student, id, 'V', vm->getId());
-
 }
