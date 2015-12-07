@@ -63,7 +63,7 @@ void uMain::main() {
         prt.debug("2");
         Parent parent(prt, bank, cparms.numStudents, cparms.parentalDelay);
         prt.debug("3");
-        WATCardOffice cardOffice(prt, bank, cparms.numCouriers);
+        WATCardOffice* cardOffice = new WATCardOffice(prt, bank, cparms.numCouriers);
         prt.debug("4");
         Groupoff groupoff(prt, cparms.numStudents, cparms.sodaCost, cparms.groupoffDelay);
         prt.debug("5");
@@ -84,7 +84,7 @@ void uMain::main() {
         prt.debug("8");
         vector<Student*> students;
         for (unsigned int i = 0; i < cparms.numStudents; i++) {
-        	students.push_back(new Student(prt, nameServer, cardOffice, groupoff, i, 
+        	students.push_back(new Student(prt, nameServer, *cardOffice, groupoff, i, 
         								   cparms.maxPurchases));
         }
     		
@@ -99,6 +99,7 @@ void uMain::main() {
             delete vendingMachines[i];
         }
         
+        delete cardOffice;
         prt.debug("10");
     }
     std::cout << "***********************" << std::endl;

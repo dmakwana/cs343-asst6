@@ -26,7 +26,7 @@ void Truck::main() {
 				for (unsigned int i = 0; i < VendingMachine::NUM_FLAVOURS; i++) {
 					totalSodas += cargo[i];
 				}
-				// prt.print(Printer::Truck, 'P', totalSodas);
+				prt.print(Printer::Truck, 'P', totalSodas);
 			}
 		} catch (BottlingPlant::Shutdown s) {
 			break;
@@ -34,11 +34,11 @@ void Truck::main() {
 
 		for (unsigned int i = 0; i < numVendingMachines; i++) {
 			unsigned int notReplenished = 0;
-			// prt.print(Printer::Truck, 'd', i, totalSodas);
+			prt.print(Printer::Truck, 'd', i, totalSodas);
 			VendingMachine* vm = machineList[stocking];
-			prt.debug("truck1");
+			// prt.debug("truck1");
 			unsigned int *stock = vm->inventory();
-			prt.debug("truck2	");
+			// prt.debug("truck2	");
 			for (int j = 0; j < VendingMachine::NUM_FLAVOURS; j++) {
 				unsigned int openSpace = maxStockPerFlavour - stock[j];
 				unsigned int restock = cargo[j] > openSpace ? openSpace : cargo[j];
@@ -50,9 +50,9 @@ void Truck::main() {
 				stock[j] += restock;
 			}
 			if (notReplenished) {
-				// prt.print(Printer::Truck, 'U', i, notReplenished);
+				prt.print(Printer::Truck, 'U', i, notReplenished);
 			}
-			// prt.print(Printer::Truck, 'D', i, totalSodas);
+			prt.print(Printer::Truck, 'D', i, totalSodas);
 			vm->restocked();
 			stocking = (stocking + 1) % numVendingMachines;
 			if (truckEmpty()) {

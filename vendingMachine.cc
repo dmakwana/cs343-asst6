@@ -64,7 +64,7 @@ unsigned int *VendingMachine::inventory() {
 }
 
 void VendingMachine::restocked() {
-	// prt.print(Printer::Vending, id, 'R');
+	prt.print(Printer::Vending, id, 'R');
 }
 
 _Nomutex unsigned int VendingMachine::cost() {

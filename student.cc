@@ -43,7 +43,7 @@ void Student::main() {
 					i++;
 					break;
 				}
-				prt.debug("student11"  );
+				// prt.debug("student11"  );
 			} catch (VendingMachine::Stock s) {
 				vm = nameServer.getMachine(id);
 				prt.print(Printer::Student, id, 'V', vm->getId());

@@ -18,7 +18,8 @@ _Task WATCardOffice {
         unsigned int sid;
         unsigned int amount;
         WATCard *card;
-        WATCard::FWATCard result;          // return future
+        WATCard::FWATCard result;  // return future
+        bool end;        
         Job(unsigned int sid, unsigned int amount, WATCard* card);
     };
     queue<Job*> jobs;
