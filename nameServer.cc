@@ -1,5 +1,5 @@
 #include "nameServer.h"
-#include "VendingMachine.h"
+#include "vendingMachine.h"
 
 void NameServer::main() {
 	prt.print(Printer::NameServer, 'S');
