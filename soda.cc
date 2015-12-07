@@ -93,12 +93,13 @@ void uMain::main() {
         	delete students[i];
         }
 
+        delete bottlingPlant;
+
         for (unsigned int i = 0; i < cparms.numVendingMachines; i++) {
             delete vendingMachines[i];
         }
+        
         prt.debug("10");
-
-        delete bottlingPlant;
     }
     std::cout << "***********************" << std::endl;
     return;
