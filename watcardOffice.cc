@@ -68,7 +68,9 @@ void WATCardOffice::main() {
 			break;
 		} or _Accept(create) {}
 	 	or _Accept(transfer) {}
-	 	or _When(jobs.size() > 0) _Accept(requestWork) {}
+	 	or _When(jobs.size() > 0) _Accept(requestWork) {
+			prt.print(Printer::WATCardOffice, 'W');
+	 	}
 	}
 	prt.print(Printer::WATCardOffice, 'F');	
 }
@@ -93,7 +95,6 @@ WATCard::FWATCard WATCardOffice::transfer(unsigned int sid, unsigned int amount,
 WATCardOffice::Job *WATCardOffice::requestWork() {
 	Job* retVal = jobs.front();
 	jobs.pop();
-	prt.print(Printer::WATCardOffice, 'W');
 	return retVal;
 }
 
